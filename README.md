@@ -4,6 +4,18 @@
 
 Generate terraform modules or spacelift stacks using a github action.
 
+### Building
+
+```
+$ make
+```
+
+### Testing
+(Note: build first by running `make`)
+```
+$ make test
+```
+
 ## How
 
 ### Terraform Module
