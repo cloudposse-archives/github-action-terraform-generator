@@ -34,31 +34,37 @@ inputs:
     description: 'Whether this is a "stack" or "module"'
     default: "module"
     required: false
+  # Note, these are only required for modules:
   component:
     description: 'Component path for output'
-    required: true
+    default: '""'
+    required: false
   module_name:
     description: 'Module name'
-    required: true
+    default: '""'
+    required: false
   module_source:
     description: 'Module source'
-    required: true
+    default: '""'
+    required: false
   module_attributes:
     description: 'Module attributes'
     default: '{}'
     required: false
+  # Note, These are only required for stacks:
   stacks_dir:
     description: 'Stacks directory'
-    default: '{}'
+    default: '""'
     required: false
   stack:
     description: 'Stack name'
-    default: '{}'
+    default: '""'
     required: false
   stack_source:
     description: 'Stack source'
-    default: '{}'
+    default: '""'
     required: false
+  # Note, these are optional, but only affect stacks when set
   components:
     description: 'Stack components'
     default: '{}'
@@ -69,5 +75,5 @@ inputs:
     required: false
   imports:
     description: 'Stack imports'
-    default: '{}'
+    default: '[]'
     required: false
