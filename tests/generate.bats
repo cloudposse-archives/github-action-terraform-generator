@@ -54,6 +54,33 @@ setup() {
   assert_success
 }
 
+@test "generate - stack will ignore module args and vice versa" {
+  run ./main.variant stack \
+    --stacks_dir ${TEST_TEMP_DIR}/components/preview \
+    --stack_source git::https://github.com/cloudposse/terraform-null-label.git?ref=0.24.1 \
+    --stack thicc-stacks \
+    --component ${TEST_TEMP_DIR}/components/preview \
+    --module_source git::https://github.com/cloudposse/terraform-null-label.git?ref=0.24.1 \
+    --module_name pr-1 \
+    --module_attributes '{"enabled: }' \
+    --components '{"example_component": { "some_setting": "value" }}' \
+    --global_vars '{"stage": "env_example"}' \
+    --imports '["some/baseline"]'
+  assert_success
+  run ./main.variant module \
+    --stacks_dir ${TEST_TEMP_DIR}/components/preview \
+    --stack_source git::https://github.com/cloudposse/terraform-null-label.git?ref=0.24.1 \
+    --stack thicc-stacks \
+    --component ${TEST_TEMP_DIR}/components/preview \
+    --module_source git::https://github.com/cloudposse/terraform-null-label.git?ref=0.24.1 \
+    --module_name pr-1 \
+    --module_attributes '{"enabled": "blah"}' \
+    --components '{"example_component": { "some_setting": "value" }}' \
+    --global_vars '{"stage: env_example}' \
+    --imports '["some/baseline"]'
+  assert_success
+}
+
 @test "generate - non json module attribures" {
   run ./main.variant module \
     --component ${TEST_TEMP_DIR}/components/preview \

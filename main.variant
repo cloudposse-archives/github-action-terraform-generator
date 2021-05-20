@@ -52,6 +52,24 @@ job "stack" {
 		default = "{}"
 		short = "i"
 	}
+	
+    # ignored options
+	option "component" {
+		type = string
+		default = ""
+	}
+	option "module_source" {
+		type = string
+		default = ""
+	}
+	option "module_name" {
+		type = string
+		default = ""
+	}
+	option "module_attributes" {
+		type = string
+		default = ""
+	}
 
 	run "shell" {
 		command = "jsonnet"
@@ -92,6 +110,32 @@ job "module" {
 		type = string
 		default = "{}"
 		short = "a"
+	}
+
+	# ignored
+	option "stacks_dir" { 
+		type = string 
+		default = ""
+	}
+	option "stack" { 
+		type = string 
+		default = ""
+	}
+	option "stack_source" { 
+		type = string 
+		default = ""
+	}
+	option "components" { 
+		type = string 
+		default = ""
+	}
+	option "global_vars" { 
+		type = string 
+		default = ""
+	}
+	option "imports" { 
+		type = string 
+		default = ""
 	}
 
 	run "shell" {

@@ -8,7 +8,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - generate
+    - ${{ inputs.type }}
     - --component
     - ${{ inputs.component }}
     - --module_name
@@ -17,7 +17,23 @@ runs:
     - ${{ inputs.module_source }}
     - --module_attributes
     - ${{ inputs.module_attributes }}
+    - --stacks_dir
+    - ${{ inputs.stacks_dir }}
+    - --stack
+    - ${{ inputs.stack }}
+    - --stack_source
+    - ${{ inputs.stack_source }}
+    - --components
+    - ${{ inputs.components }}
+    - --global_vars
+    - ${{ inputs.global_vars }}
+    - --imports
+    - ${{ inputs.imports }}
 inputs:
+  type:
+    description: 'Whether this is a "stack" or "module"'
+    default: "module"
+    required: false
   component:
     description: 'Component path for output'
     required: true
@@ -29,5 +45,29 @@ inputs:
     required: true
   module_attributes:
     description: 'Module attributes'
+    default: '{}'
+    required: false
+  stacks_dir:
+    description: 'Stacks directory'
+    default: '{}'
+    required: false
+  stack:
+    description: 'Stack name'
+    default: '{}'
+    required: false
+  stack_source:
+    description: 'Stack source'
+    default: '{}'
+    required: false
+  components:
+    description: 'Stack components'
+    default: '{}'
+    required: false
+  global_vars:
+    description: 'Stack globals'
+    default: '{}'
+    required: false
+  imports:
+    description: 'Stack imports'
     default: '{}'
     required: false
