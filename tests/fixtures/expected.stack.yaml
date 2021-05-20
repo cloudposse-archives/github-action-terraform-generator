@@ -1,0 +1,12 @@
+"components":
+  "terraform":
+    "thicc-stacks":
+      "settings":
+        "example_component":
+          "some_setting": "value"
+      "vars":
+        "source": "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.24.1"
+"import":
+- "some/baseline"
+"vars":
+  "stage": "env_example"
