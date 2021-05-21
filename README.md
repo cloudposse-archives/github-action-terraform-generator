@@ -11,6 +11,14 @@ $ make
 ```
 
 ### Testing
+
+The best way to run tests is with [https://github.com/envcli/envcli](envcli).
+If you don't have envcli, just download the appropriate binary from their repo and put it in your `$PATH` somewhere.
+```
+envcli run bats tests
+```
+
+Alternately, you can run make like so (but you'll have to rebuild all the time to update tests):
 (Note: build first by running `make`)
 ```
 $ make test
