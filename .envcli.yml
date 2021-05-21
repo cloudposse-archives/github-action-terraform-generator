@@ -10,12 +10,12 @@ images:
     image: cloudposse/terraform-generator:latest
     shell: bash
     before_script:
+      - '[ ! -f .envrc ] && touch .envrc'
       - source .envrc
     containerRuntimeAccess: true
     cache:
     - name: home
       directory: /root/
-
   - name: test
     description: test
     provides:
@@ -23,6 +23,7 @@ images:
     image: cloudposse/terraform-generator:test-latest
     shell: bash
     before_script:
+      - '[ ! -f .envrc ] && touch .envrc'
       - source .envrc
     containerRuntimeAccess: true
     cache:

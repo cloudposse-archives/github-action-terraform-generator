@@ -13,7 +13,80 @@ option "install_dir" {
   type        = string
 }
 
-job "generate" {
+job "stack" {
+	option "stacks_dir" {
+		description = "Stack path"
+		type = string
+		short = "d"
+	}
+
+	option "stack" {
+		description = "Stack name"
+		type = string
+		short = "n"
+	}
+
+	option "stack_source" {
+		description = "Stack source"
+		type = string
+		short = "s"
+	}
+
+	option "components" {
+		description = "Stack components"
+		type = string
+		default = "{}"
+		short = "c"
+	}
+
+	option "global_vars" {
+		description = "Global variables"
+		type = string
+		default = "{}"
+		short = "g"
+	}
+
+	option "imports" {
+		description = "Stack imports"
+		type = string
+		default = "{}"
+		short = "i"
+	}
+	
+    # ignored options
+	option "component" {
+		type = string
+		default = ""
+	}
+	option "module_source" {
+		type = string
+		default = ""
+	}
+	option "module_name" {
+		type = string
+		default = ""
+	}
+	option "module_attributes" {
+		type = string
+		default = ""
+	}
+
+	run "shell" {
+		command = "jsonnet"
+		args    = [
+			"--ext-str", "name=${opt.stack}",
+			"--ext-str", "source=${opt.stack_source}",
+			"--ext-str", "components=${jsonencode(jsondecode(opt.components))}",
+			"--ext-str", "global_vars=${jsonencode(jsondecode(opt.global_vars))}",
+			"--ext-str", "imports=${jsonencode(jsondecode(opt.imports))}",
+			"--create-output-dirs", "-S",
+			"--output-file", "${opt.stacks_dir}/${opt.stack}.yaml",
+			"${opt.install_dir}/stack.jsonnet"
+		]
+	}
+}
+
+job "module" {
 	option "component" {
 		description = "Component path"
 		type = string
@@ -37,6 +110,32 @@ job "generate" {
 		type = string
 		default = "{}"
 		short = "a"
+	}
+
+	# ignored
+	option "stacks_dir" { 
+		type = string 
+		default = ""
+	}
+	option "stack" { 
+		type = string 
+		default = ""
+	}
+	option "stack_source" { 
+		type = string 
+		default = ""
+	}
+	option "components" { 
+		type = string 
+		default = ""
+	}
+	option "global_vars" { 
+		type = string 
+		default = ""
+	}
+	option "imports" { 
+		type = string 
+		default = ""
 	}
 
 	run "shell" {
